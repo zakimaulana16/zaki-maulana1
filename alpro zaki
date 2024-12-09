@@ -1,0 +1,35 @@
+import pandas as pd
+
+# 2. baca file student.csv ke dataframe
+df = pd.read_csv('students.csv')
+
+# 3. tampilkan 5 baris pertama dari dataframe
+print("\nBaris pertama:")
+print(df.head())
+
+# 4. tampilkan informasi tentang data frame 
+print("\nInformasi Dataframe:")
+df.info()
+print("\nStatistik Deskriptif:")
+print(df.describe())
+
+# 5. tambahkan kolom baru bernama status
+def status(grade):
+    if grade >=80:
+        return 'Lulus'
+    else:
+        return 'Tidak Lulus'
+df['Status'] = df['Grade'].apply(status)
+print(df)
+
+# 6. simpan dataframe yang dimodifikasi
+df.to_csv('students_processed.csv', index=False)
+
+# 7. hitung rata-rata grade mahasiswa dan hasilnya
+rata_rata_grade = df['Grade'].mean()
+print("\nRata-rata nilai Grade:", rata_rata_grade)
+
+# 8. kelompokkan data berdasarkan status dan hitung jumlah mahasiswa
+status_mahasiswa = df['Status'].value_counts()
+print("\nJumlah Mahasiswa per Status:")
+print(status_mahasiswa)
